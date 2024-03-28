@@ -35,9 +35,16 @@ public class Controller {
 	public void getTrainingGroups() {
 		List<User> students = dataService.getAllStudent();
 		List<User> teachers = dataService.getAllTeacher();
+		int numStudentsPerTeacher = students.size() / teachers.size();
+
 		for (int i = 0; i < teachers.size(); i++) {
 			System.out.println(teachers.get(i));
-			for (int j = students.size() / teachers.size() * i; j < students.size() / teachers.size(); j++) {
+			int startIndex = i * numStudentsPerTeacher;
+			int endIndex = (i + 1) * numStudentsPerTeacher;
+			if (i == teachers.size() - 1) { // If it's the last teacher, include remaining students
+				endIndex = students.size();
+			}
+			for (int j = startIndex; j < endIndex; j++) {
 				System.out.println(students.get(j));
 			}
 		}
@@ -46,9 +53,15 @@ public class Controller {
 	public void createTrainingGroup() {
 		List<User> students = dataService.getAllStudent();
 		List<User> teachers = dataService.getAllTeacher();
+		int numStudentsPerTeacher = students.size() / teachers.size();
 		for (int i = 0; i < teachers.size(); i++) {
 			TrainingGroup tg = trainingGroupService.create(((Teacher) teachers.get(i)), new ArrayList<Student>());
-			for (int j = students.size() / teachers.size() * i; j < students.size() / teachers.size(); j++) {
+			int startIndex = i * numStudentsPerTeacher;
+			int endIndex = (i + 1) * numStudentsPerTeacher;
+			if (i == teachers.size() - 1) { // If it's the last teacher, include remaining students
+				endIndex = students.size();
+			}
+			for (int j = startIndex; j < endIndex; j++) {
 				tg.addStudent(((Student) students.get(j)));
 			}
 		}

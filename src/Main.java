@@ -13,6 +13,7 @@ public class Main {
 		ctr.createStudent("1q", "1q", "1q");
 		ctr.createStudent("1q", "1q", "1q");
 		ctr.createTeacher(null, null, null);
+		ctr.createTeacher("a", "1", "1");
 		ctr.createTrainingGroup();
 		ctr.getTrainingGroups();
 	}
